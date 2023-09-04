@@ -1,6 +1,7 @@
 # Phase1:
->[URL]()
->[PR]()
+>[SandBox](https://96qgzt.csb.app/)
+>
+>[PR](https://github.com/FarrahYasin/todo-app/pull/7)
 >
 >
 >In this phase I made a refactore for the code that given to me, so I made all the states inside the context provider and passed all it in the app to Todo component and from Todo component I passed it to all list form.
