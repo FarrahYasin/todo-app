@@ -8,7 +8,7 @@
 >In this phase I made a refactore for the code that given to me, so I made all the states inside the context provider and passed all it in the app to Todo component and from Todo component I passed it to all list form.
 >**Describe how global state is consumed by the components**
 >
-By using -> useContext() , by using it that allow to us to can share the data from all levels of our application, also by using it we can solve prop-drilling problem.
+>By using -> useContext() , by using it that allow to us to can share the data from all levels of our application, also by using it we can solve prop-drilling problem.
 So to use useContext we can create a provider and put inside this provider all the props that I want to share it with all children, then the consumer can use all props when called it.
 >
 >**Describe the operation of the hook: useForm()**
