@@ -10,8 +10,9 @@ So to use useContext we can create a provider and put inside this provider all t
 useForm() hook takes different method than other hooks in  React ecosystem by adopting the use of unmanaged inputs using ref instead of depending on the state to manage the inputs. using the useForm() hook very usefull and it makes the forms reduces the number of re-renders.
 
 >
->>
+>
 >**UML**
+>
 >![Alt text](UML.png)
 ---
 
