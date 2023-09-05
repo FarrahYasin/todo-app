@@ -1,7 +1,7 @@
 # Phase1:
 >[SandBox](https://96qgzt.csb.app/)
 >
->[PR](https://github.com/FarrahYasin/todo-app/pull/7)
+>[PR](https://github.com/FarrahYasin/todo-app/pull/13)
 >
 >**Description**
 >
