@@ -31,9 +31,13 @@ const useForm = (callback, defaultValues = {}) => {
     setValues((values) => ({ ...values, [name]: value }));
   };
 
+  // useEffect(() => {
+  //   setValues(defaultValues);
+  // }, [defaultValues]);
   useEffect(() => {
     setValues(defaultValues);
-  }, [defaultValues]);
+  }, [setValues, defaultValues]);
+  
 
   return {
     handleChange,
