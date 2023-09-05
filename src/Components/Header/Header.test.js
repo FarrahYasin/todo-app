@@ -1,10 +1,13 @@
+/* eslint-disable testing-library/no-wait-for-multiple-assertions */
 import React from 'react';
-import { render,screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { render, screen} from '@testing-library/react';
 import Header from './index';
 
+
 test('renders the header title correctly', () => {
-  const { getByText } = render(<Header />);
-  const headerTitleElement = screen.getByText(/ToDo/i);
+  const { getByText} = render(<Header />);
+  const headerTitleElement =getByText(/ToDo/i);
   expect(headerTitleElement).toBeTruthy();
 });
 
