@@ -6,7 +6,7 @@
 # Phase2:
 >[SandBox](https://h3wjqv.csb.app/)
 >
->[PR](https://github.com/FarrahYasin/todo-app/pull/14)
+>[PR](https://github.com/FarrahYasin/todo-app/pull/15)
 
 ---
 
