@@ -46,8 +46,10 @@ const Todo = () => {
     const items = settingsState.list.map((item) => {
       if (item.id === id) {
         // item.complete = !item.complete;
-        item.complete = 'complete';
-        settingsState.setIncomplete(item.complete)
+        // item.complete = 'complete';
+        item.complete = item.complete === 'pending' ? 'complete' : 'pending';
+
+        // settingsState.setIncomplete(item.incomplete)
       }
       return item;
     });
@@ -65,7 +67,7 @@ const Todo = () => {
 
 
   useEffect(() => {
-    let incompleteCount = settingsState.list.filter((item) => item.complete).length;
+    let incompleteCount = settingsState.list.filter((item) => item.complete && item.complete === 'pending').length;
     settingsState.setIncomplete(incompleteCount);
     document.title = `To Do List: ${settingsState.incomplete}`;
     // linter will want 'incomplete' added to dependency array unnecessarily.
@@ -73,7 +75,7 @@ const Todo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settingsState.list]);
   // }, [settingsState.setIncomplete,settingsState.list]);
-
+// ,(settingsState.incomplete)
 
   
   return (
