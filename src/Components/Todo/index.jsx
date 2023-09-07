@@ -5,53 +5,81 @@ import { settingsContext } from "../Context/Settings/index.js";
 import List from "../List/index.js";
 import './todo.scss'
 
+// const {list,setList,incomplete,setIncomplete} = useContext(settingsContext);
+// const [list, setList] = useState([]);
+// const [incomplete, setIncomplete] = useState([]);
+
 const Todo = () => {
-  const {list,setList,incomplete,setIncomplete} = useContext(settingsContext);
+
+  const settingsState = useContext(settingsContext);
 
   const [defaultValues] = useState({
     difficulty: 4,
   });
-  // const [list, setList] = useState([]);
-  // const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
     item.id = uuid();
-    item.complete = false;
+    item.complete = 'pending';//false
     console.log(item);
-    setList([...list, item]);
+    settingsState.setList([...settingsState.list, item]);
   }
 
   function deleteItem(id) {
-    const items = list.filter((item) => item.id !== id);
-    setList(items);
+    const items = settingsState.list.filter((item) => item.id !== id);
+    settingsState.setList(items);
   }
 
   function toggleComplete(id) {
-    const items = list.map((item) => {
+    const items = settingsState.list.map((item) => {
       if (item.id === id) {
         item.complete = !item.complete;
       }
       return item;
     });
-
-    setList(items);
+    settingsState.setList(items);
     deleteItem(id);
   }
 
+
+   function toggleCompletee(id) {
+    const items = settingsState.list.map((item) => {
+      if (item.id === id) {
+        // item.complete = !item.complete;
+        item.complete = 'complete';
+        settingsState.setIncomplete(item.complete)
+      }
+      return item;
+    });
+    settingsState.setList(items);
+    // `${settingsState.incomplete}`
+    // deleteItem(id);
+  }
+  // if(settingsState.item.complete === 'pending'){
+  //   toggleCompletee()
+  // }
+
+  // useEffect(()=>{
+  //   toggleCompletee()
+  // },[settingsState.complete])
+
+
   useEffect(() => {
-    let incompleteCount = list.filter((item) => !item.complete).length;
-    setIncomplete(incompleteCount);
-    document.title = `To Do List: ${incomplete}`;
+    let incompleteCount = settingsState.list.filter((item) => item.complete).length;
+    settingsState.setIncomplete(incompleteCount);
+    document.title = `To Do List: ${settingsState.incomplete}`;
     // linter will want 'incomplete' added to dependency array unnecessarily.
     // disable code used to avoid linter warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [list]);
+  }, [settingsState.list]);
+  // }, [settingsState.setIncomplete,settingsState.list]);
 
+
+  
   return (
     <>
       <header data-testid="todo-header">
-        <h1 data-testid="todo-h1" className="todo-h1">To Do List: {incomplete} items pending</h1>
+        <h1 data-testid="todo-h1" className="todo-h1">To Do List: {settingsState.incomplete} items pending</h1>
       </header>
 
       <div  className="form-container">
@@ -101,7 +129,7 @@ const Todo = () => {
         </div>
       <div className="list-div">
 
-      <List list = {list} toggleComplete={toggleComplete}>
+      <List list = {settingsState.list} toggleComplete={toggleComplete} toggleCompletee={toggleCompletee}>
 
         {/* {list.map((item) => (
           <div key={item.id}>
