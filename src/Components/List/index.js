@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Pagination, Select ,CloseButton} from "@mantine/core";
+import React, { useContext, useEffect, useState } from "react";
+import { Pagination, Select, CloseButton } from "@mantine/core";
 import { settingsContext } from "../Context/Settings/index";
 
 // export default function List({ list, toggleComplete }) {
@@ -7,28 +7,38 @@ import { settingsContext } from "../Context/Settings/index";
 
 export default function List(props) {
   const settingsState = useContext(settingsContext);
+  const [itemsToDisplay, setItemToDisplay] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const startIndex =
-    (settingsState.currentPage - 1) * settingsState.itemsPerPage;
-  const endIndex = startIndex + settingsState.itemsPerPage;
+  console.log("itemstodisplay before", itemsToDisplay);
 
-  const itemsToDisplay = props.list.slice(startIndex, endIndex);
+  useEffect(() => {
+    // console.log(typeof itemsPerPage)
+    const startIndex = (currentPage - 1) * parseInt(settingsState.itemsPerPage);
+    const endIndex = startIndex +  parseInt(settingsState.itemsPerPage);
+  console.log(startIndex,endIndex)
+    setItemToDisplay(props.list.slice(startIndex, endIndex));
+    //  console.log("itemsto",itemsToDisplay)
+  }, [props.list, settingsState.itemsPerPage, currentPage]);
 
   const handlePageChange = (newPage) => {
-    console.log('new Page // handleItemsPerPageChange',newPage)
-    settingsState.setCurrentPage(newPage);
+    setCurrentPage(newPage);
+    console.log("new Page // handleItemsPerPageChange", typeof newPage);
+
   };
 
-  // const handleItemsPerPageChange = (value) => {
-  //   console.log('value // handleItemsPerPageChange',value)
-  //     settingsState.setItemsPerPage(value);
-  // };
- 
+  const handleItemsPerPageChange = (value) => {
+    console.log("value // handleItemsPerPageChange",value);
+    settingsState.setItemsPerPage(value);
+    
+  };
+
   return (
     <div>
-
-      {/* <div className="select-list">
-        <label><span>Items per page:</span></label>
+      <div className="select-list">
+        <label>
+          <span>Items per page:</span>
+        </label>
         <Select
           id="items-per-page"
           value={settingsState.itemsPerPage}
@@ -43,12 +53,11 @@ export default function List(props) {
             { label: "10", value: "10" },
           ]}
         />
-      </div> */}
+      </div>
 
       {itemsToDisplay.map((item) => (
-        
         <div key={item.id}>
-         <CloseButton onClick={() => props.toggleComplete(item.id)} />
+          <CloseButton onClick={() => props.toggleComplete(item.id)} />
           <p>{item.text}</p>
           <p>
             <small>Assigned to: {item.assignee}</small>
@@ -56,21 +65,19 @@ export default function List(props) {
           <p>
             <small>Difficulty: {item.difficulty}</small>
           </p>
-           <div onClick={() => props.toggleCompletee(item.id)}>
+          <div onClick={() => props.toggleCompletee(item.id)}>
             Complete: {item.complete.toString()}
-             {/* <span className='copmleted'>Copmleted</span> : <span className='pendindg'>Pending</span> */}
-         </div>  
-          
-        
+            {/* <span className='copmleted'>Copmleted</span> : <span className='pendindg'>Pending</span> */}
+          </div>
+
           <hr />
         </div>
-      ))
-    }
+      ))}
 
       {props.list.length > settingsState.itemsPerPage && (
         <Pagination
           total={Math.ceil(props.list.length / settingsState.itemsPerPage)}
-          value={settingsState.currentPage}
+          value={currentPage}
           onChange={handlePageChange}
           position="center"
           styles={(theme) => ({

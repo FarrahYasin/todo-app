@@ -10,7 +10,6 @@ import './todo.scss'
 // const [incomplete, setIncomplete] = useState([]);
 
 const Todo = () => {
-
   const settingsState = useContext(settingsContext);
 
   const [defaultValues] = useState({
@@ -21,7 +20,7 @@ const Todo = () => {
   function addItem(item) {
     item.id = uuid();
     item.complete = 'pending';//false
-    console.log(item);
+    console.log("item::",item);
     settingsState.setList([...settingsState.list, item]);
   }
 
@@ -45,27 +44,16 @@ const Todo = () => {
    function toggleCompletee(id) {
     const items = settingsState.list.map((item) => {
       if (item.id === id) {
-        // item.complete = !item.complete;
-        // item.complete = 'complete';
         item.complete = item.complete === 'pending' ? 'complete' : 'pending';
-
-        // settingsState.setIncomplete(item.incomplete)
+        settingsState.setIncomplete(item.complete)
       }
+      console.log("incomplete",settingsState.list)
       return item;
     });
     settingsState.setList(items);
-    // `${settingsState.incomplete}`
-    // deleteItem(id);
+
   }
-  // if(settingsState.item.complete === 'pending'){
-  //   toggleCompletee()
-  // }
-
-  // useEffect(()=>{
-  //   toggleCompletee()
-  // },[settingsState.complete])
-
-
+  
   useEffect(() => {
     let incompleteCount = settingsState.list.filter((item) => item.complete && item.complete === 'pending').length;
     settingsState.setIncomplete(incompleteCount);
@@ -74,8 +62,6 @@ const Todo = () => {
     // disable code used to avoid linter warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settingsState.list]);
-  // }, [settingsState.setIncomplete,settingsState.list]);
-// ,(settingsState.incomplete)
 
   
   return (
