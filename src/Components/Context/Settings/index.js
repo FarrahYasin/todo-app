@@ -3,13 +3,12 @@ import React, { useState } from "react";
 export const settingsContext = React.createContext();
 
 export default function SettingsProvider(props) {
+  const [itemsPerPage,setItemsPerPage] = useState(3)
 
   const [values, setValues] = useState({});
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState('dificulty')
-  const [itemsPerPage,setItemsPerPage] = useState(3)
   const [showCompleted,setShowCompleted]=useState(true)//
   
   // itemsPerPage: 3,
@@ -23,7 +22,10 @@ export default function SettingsProvider(props) {
   // };
 
   let initState = {
+    itemsPerPage,
+    setIncomplete,
     showCompleted,
+    setItemsPerPage,
     setShowCompleted,
     sort,
     setSort,
@@ -33,10 +35,7 @@ export default function SettingsProvider(props) {
     setList,
     incomplete,
     setIncomplete,
-    currentPage,
-    setCurrentPage,
-    itemsPerPage,
-    setItemsPerPage
+  
   };
  
   return (
