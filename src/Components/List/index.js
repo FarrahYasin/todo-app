@@ -19,15 +19,15 @@ export default function List(props) {
     settingsState.setCurrentPage(newPage);
   };
 
-  // const handleItemsPerPageChange = (value) => {
-  //   console.log('value // handleItemsPerPageChange',value)
-  //     settingsState.setItemsPerPage(value);
-  // };
+  const handleItemsPerPageChange = (value) => {
+    console.log('value // handleItemsPerPageChange',value)
+      settingsState.setItemsPerPage(value);
+  };
  
   return (
     <div>
 
-      {/* <div className="select-list">
+      <div className="select-list">
         <label><span>Items per page:</span></label>
         <Select
           id="items-per-page"
@@ -43,7 +43,7 @@ export default function List(props) {
             { label: "10", value: "10" },
           ]}
         />
-      </div> */}
+      </div>
 
       {itemsToDisplay.map((item) => (
         
