@@ -4,7 +4,8 @@ import { v4 as uuid } from "uuid";
 import { settingsContext } from "../Context/Settings/index.js";
 import List from "../List/index.js";
 import './todo.scss'
-import { getListFromLocalStorage } from "../Context/Settings/localStorage"; // Import the utility function
+import { getListFromLocalStorage } from "../localStorage/localStorage"; // Import the utility function
+import { getPageFromLocalStorage } from "../localStorage/localstorage_page";
 
 // const {list,setList,incomplete,setIncomplete} = useContext(settingsContext);
 // const [list, setList] = useState([]);
@@ -70,6 +71,11 @@ const Todo = () => {
     settingsState.setList(storedList);
   }, []);
 
+  useEffect(() => {
+    const storedPage = getPageFromLocalStorage();
+    settingsState.setList(storedPage);
+  }, []);
+
   return (
     <>
       <header data-testid="todo-header">
@@ -124,22 +130,6 @@ const Todo = () => {
       <div className="list-div">
 
       <List list = {settingsState.list} toggleComplete={toggleComplete} toggleCompletee={toggleCompletee}>
-
-        {/* {list.map((item) => (
-          <div key={item.id}>
-          <p>{item.text}</p>
-          <p>
-          <small>Assigned to: {item.assignee}</small>
-            </p>
-            <p>
-            <small>Difficulty: {item.difficulty}</small>
-            </p>
-            <div onClick={() => toggleComplete(item.id)}>
-            Complete: {item.complete.toString()}
-            </div>
-            <hr />
-            </div>
-          ))} */}
 
         </List>
           </div>

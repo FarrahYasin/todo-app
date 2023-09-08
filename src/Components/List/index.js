@@ -26,8 +26,6 @@ export default function List(props) {
 
   };
 
- 
-
   // const handleItemsPerPageChange = (value) => {  // لما كانت هونselect هي كانت لل 
   //   console.log("value // handleItemsPerPageChange",value);
   //   settingsState.setItemsPerPage(value);

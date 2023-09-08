@@ -18,12 +18,12 @@ export default function SettingsPage(props) {
     settingsState.setList(items);
     console.log(items, 'this is from ')
   };
-
+  
+  
   const handleItemsPerPageChange = (value) => {
     settingsState.setItemsPerPage(value);
   };
 
-  // Load itemsPerPage and sort settings from local storage when the component mounts
   useEffect(() => {
     const storedItemsPerPage = localStorage.getItem("itemsPerPage");
     if (storedItemsPerPage) {
@@ -32,23 +32,15 @@ export default function SettingsPage(props) {
 
     const storedSort = localStorage.getItem("sort");
     if (storedSort) {
-      // Update the sort setting in your context here
       settingsState.setSort(storedSort);
     }
   }, []);
 
-  // Save itemsPerPage and sort settings to local storage when they change
   useEffect(() => {
     localStorage.setItem("itemsPerPage", settingsState.itemsPerPage);
-    // Update the sort setting in local storage here if needed
     localStorage.setItem("sort", settingsState.sort);
   }, [settingsState.itemsPerPage, settingsState.sort]);
-
  
-
-
-
-
 
   return (
     <div>
@@ -72,7 +64,7 @@ export default function SettingsPage(props) {
           <Select
             id="items-per-page"
             value={settingsState.itemsPerPage}
-            onChange={(value) => handleItemsPerPageChange(value)}
+            onChange={(value) => handleItemsPerPageChange(...value,value)}
             data={[
               { label: "1", value: "1" },
               { label: "2", value: "2" },
