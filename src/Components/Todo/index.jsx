@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import { settingsContext } from "../Context/Settings/index.js";
 import List from "../List/index.js";
 import './todo.scss'
+import { getListFromLocalStorage } from "../Context/Settings/localStorage"; // Import the utility function
 
 // const {list,setList,incomplete,setIncomplete} = useContext(settingsContext);
 // const [list, setList] = useState([]);
@@ -63,7 +64,12 @@ const Todo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settingsState.list]);
 
-  
+
+  useEffect(() => {
+    const storedList = getListFromLocalStorage();
+    settingsState.setList(storedList);
+  }, []);
+
   return (
     <>
       <header data-testid="todo-header">

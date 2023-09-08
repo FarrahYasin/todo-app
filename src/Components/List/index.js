@@ -1,25 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Pagination, Select, CloseButton } from "@mantine/core";
+import { Pagination, CloseButton } from "@mantine/core";
 import { settingsContext } from "../Context/Settings/index";
-
-// export default function List({ list, toggleComplete }) {
-// const {itemsPerPage,currentPage,setCurrentPage} = useContext(settingsContext);
 
 export default function List(props) {
   const settingsState = useContext(settingsContext);
   const [itemsToDisplay, setItemToDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+ 
   console.log("itemstodisplay before", itemsToDisplay);
 
   useEffect(() => {
-    // console.log(typeof itemsPerPage)
     const startIndex = (currentPage - 1) * parseInt(settingsState.itemsPerPage);
     const endIndex = startIndex +  parseInt(settingsState.itemsPerPage);
   console.log(startIndex,endIndex)
     setItemToDisplay(props.list.slice(startIndex, endIndex));
+    // console.log(typeof itemsPerPage)
     //  console.log("itemsto",itemsToDisplay)
   }, [props.list, settingsState.itemsPerPage, currentPage]);
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -27,34 +26,16 @@ export default function List(props) {
 
   };
 
-  const handleItemsPerPageChange = (value) => {
-    console.log("value // handleItemsPerPageChange",value);
-    settingsState.setItemsPerPage(value);
-    
-  };
+ 
+
+  // const handleItemsPerPageChange = (value) => {  // لما كانت هونselect هي كانت لل 
+  //   console.log("value // handleItemsPerPageChange",value);
+  //   settingsState.setItemsPerPage(value);
+  // };
 
   return (
     <div>
-      <div className="select-list">
-        <label>
-          <span>Items per page:</span>
-        </label>
-        <Select
-          id="items-per-page"
-          value={settingsState.itemsPerPage}
-          onChange={(value) => handleItemsPerPageChange(value)}
-          data={[
-            { label: "1", value: "1" },
-            { label: "2", value: "2" },
-            { label: "3", value: "3" },
-            { label: "4", value: "4" },
-            { label: "5", value: "5" },
-            { label: "6", value: "6" },
-            { label: "10", value: "10" },
-          ]}
-        />
-      </div>
-
+      
       {itemsToDisplay.map((item) => (
         <div key={item.id}>
           <CloseButton onClick={() => props.toggleComplete(item.id)} />
@@ -96,46 +77,4 @@ export default function List(props) {
     </div>
   );
 }
-
-// import React, { useContext } from 'react';
-// import { Pagination } from '@mantine/core';
-// import { settingsContext } from "../../Context/Setting";
-
-// export default function List({ list, toggleComplete }) {
-//     const settings = useContext(settingsContext);
-
-//   return (
-//     <div>
-//       {list.map((item) => (
-//         <div key={item.id}>
-//           <p>{item.text}</p>
-//           <p>
-//             <small>Assigned to: {item.assignee}</small>
-//           </p>
-//           <p>
-//             <small>Difficulty: {item.difficulty}</small>
-//           </p>
-//           <div onClick={() => toggleComplete(item.id)}>
-//             Complete: {item.complete.toString()}
-//           </div>
-//           <hr />
-//         </div>
-//       ))}
-
-//       {list.length > 3 && (
-//         <Pagination
-//           total={list.length ? Math.ceil(list.length/settings.items) : 1}
-//           position="center"
-//           styles={(theme) => ({
-//             control: {
-//               '&[data-active]': {
-//                 backgroundImage: theme.fn.gradient({ from: 'red', to: 'yellow' }),
-//                 border: 0,
-//               },
-//             },
-//           })}
-//         />
-//       )}
-//     </div>
-//   );
-// }
+//  <SettingsPage /> 
