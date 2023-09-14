@@ -1,9 +1,8 @@
-import {useEffect, useContext } from "react";
-import { settingsContext } from "../Components/Context/Settings";
-const useForm = (callback, defaultValues = {}) => {
-  const { setValues, values , sort} = useContext(settingsContext);
+import { useState, useEffect } from 'react';
 
-  // const [values, setValues] = useState({});
+const useForm = (callback, defaultValues = {}) => {
+
+  const [values, setValues] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,15 +11,15 @@ const useForm = (callback, defaultValues = {}) => {
 
   const handleChange = (event) => {
     let name, value;
-    if (typeof event === "object") {
+    if (typeof (event) === 'object') {
       name = event.target.name;
       value = event.target.value;
     } else {
-      console.log("event from slider", event);
-      // hard coded for Mantine slider functionality
+      console.log('event from slider', event)
+      // hard coded for Mantine slider functionality 
       // change "difficulty" language if desired
       // change name dynamically if doing stretch goal!
-      name = sort;
+      name = 'difficulty';
       value = event;
     }
 
@@ -28,16 +27,13 @@ const useForm = (callback, defaultValues = {}) => {
       value = parseInt(value);
     }
 
-    setValues((values) => ({ ...values, [name]: value }));
+    setValues(values => ({ ...values, [name]: value }));
+    console.log({ ...values })
   };
 
-  // useEffect(() => {
-  //   setValues(defaultValues);
-  // }, [defaultValues]);
   useEffect(() => {
     setValues(defaultValues);
-  }, [setValues, defaultValues]);
-  
+  }, [defaultValues]);
 
   return {
     handleChange,
