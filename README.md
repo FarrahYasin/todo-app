@@ -1,4 +1,4 @@
-#### Rama and Farah worked together to solve this lab😁
+#### Farah rama and laith worked together to solve this lab😁
 >
 ---
 >
